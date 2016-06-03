@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WarriorData : MonoBehaviour {
+public class EnemyData : MonoBehaviour {
 
     public Attribute attack;
     public Attribute speed;
@@ -14,17 +14,20 @@ public class WarriorData : MonoBehaviour {
 
     public BattleElement target;
 
+
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         attack = new Attribute(ATTRIBUTE_TYPE.ATTACK, 10);
         speed = new Attribute(ATTRIBUTE_TYPE.SPEED, 1);
         health = new Attribute(ATTRIBUTE_TYPE.HEALTH, 1000000);
         crit = new Attribute(ATTRIBUTE_TYPE.CRIT, 0);
         life = (int)health.value;
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }

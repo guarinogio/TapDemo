@@ -7,14 +7,14 @@ public class Attribute{
     private ATTRIBUTE_TYPE type;
     private int cost;
     private int lvl;
-    private int value;
+    public float value { get; private set; }
 
-    public Attribute(ATTRIBUTE_TYPE type)
+    public Attribute(ATTRIBUTE_TYPE type, float value)
     {
         this.type = type;
         cost = 100;
         lvl = 1;
-        value = 50;
+        this.value = value;
     }
 
     public bool Buy(int coins)
