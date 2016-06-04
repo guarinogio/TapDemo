@@ -11,3 +11,11 @@
     POTENCY,
     GOLD
 }
+
+public enum ATTRIBUTE_FORMULA
+{
+    FUNTION1,
+    FUNTION2,
+    FUNTION3,
+    FUNTION4,
+}

@@ -42,7 +42,7 @@ public class EnemyController : BattleElement {
         {
             while (!enemy.isDead) {
                 enemy.DoDamage((int)data.attack.value);
-                yield return new WaitForSeconds(data.speed.value);
+                yield return new WaitForSeconds((float)data.speed.value);
             }
 
             yield return null;

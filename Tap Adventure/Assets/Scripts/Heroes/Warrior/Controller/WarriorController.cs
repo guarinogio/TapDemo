@@ -43,8 +43,16 @@ public class WarriorController : BattleElement{
         {
             while (!enemy.isDead)
             {
-                enemy.DoDamage((int)data.attack.value);
-                yield return new WaitForSeconds(data.speed.value);
+                if (Random.Range(0.00f,1.00f) <= data.crit.value)
+                {
+                    enemy.DoDamage((int)data.attack.value2 * 2);
+                }
+                else
+                {
+                    enemy.DoDamage(Random.Range((int)data.attack.value, (int)data.attack.value2));
+                }
+
+                yield return new WaitForSeconds((int)data.speed.value);
             }
 
             yield return null;
