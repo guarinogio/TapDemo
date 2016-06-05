@@ -45,6 +45,7 @@ public class WarriorController : BattleElement{
             {
                 if (Random.Range(0.00f,1.00f) <= data.crit.value)
                 {
+                    Debug.Log("critical");
                     enemy.DoDamage((int)data.attack.value2 * 2);
                 }
                 else
@@ -77,5 +78,13 @@ public class WarriorController : BattleElement{
     public override void Heal(int points)
     {
         base.Heal(points);
+        if (!data.isDead)
+        {
+            data.life += points;
+            if (data.life > data.health.value)
+            {
+                data.life = (int)data.health.value;
+            }
+        }
     }
 }

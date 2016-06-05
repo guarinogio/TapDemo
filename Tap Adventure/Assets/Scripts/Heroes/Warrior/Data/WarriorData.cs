@@ -16,7 +16,8 @@ public class WarriorData : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        attack = new Attribute(ATTRIBUTE_TYPE.ATTACK,ATTRIBUTE_FORMULA.FUNTION4, 10,50,20,0.5,100);
+        attack = new Attribute(ATTRIBUTE_TYPE.ATTACK,20,50,100,100);
+        attack.SetFormula(ATTRIBUTE_FORMULA.FUNTION4, 10, 15, 100, 200);
         speed = new Attribute(ATTRIBUTE_TYPE.SPEED, 1);
         health = new Attribute(ATTRIBUTE_TYPE.HEALTH, 1000000);
         crit = new Attribute(ATTRIBUTE_TYPE.CRIT, 0.3f);

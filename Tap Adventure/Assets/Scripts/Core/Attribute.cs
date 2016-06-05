@@ -8,8 +8,12 @@ public class Attribute{
     private ATTRIBUTE_FORMULA formula;
     private double factor1;
     private double factor2;
+    private double factorCost1;
+    private double factorCost2;
 
-    private int cost;
+    private double cost;
+    private double initCost;
+    private double lastCost;
 
     private int lvl;
     private int maxLVL;
@@ -19,6 +23,7 @@ public class Attribute{
 
     private double lastValue;
     private double lastValue2;
+
 
     public double value { get; private set; }
     public double value2 { get; private set; }
@@ -37,21 +42,31 @@ public class Attribute{
         isMax = false;
     }
 
-    public Attribute(ATTRIBUTE_TYPE type, ATTRIBUTE_FORMULA formula, double value, double value2, double factor1, double factor2, int maxLVL)
+    public Attribute(ATTRIBUTE_TYPE type, double value, double value2, double cost, int maxLVL)
     {
         this.type = type;
-        this.formula = formula;
-        cost = 100;
         lvl = 1;
         this.value = value;
         this.value2 = value2;
         this.initValue = value;
         this.initValue2 = value2;
+        this.cost = cost;
+        this.initCost = cost;
+        this.lastCost = cost;
         isMax = false;
-        this.factor1 = factor1;
-        this.factor2 = factor2;
         this.maxLVL = maxLVL;
     }
+
+
+    public void SetFormula(ATTRIBUTE_FORMULA formula, double factor1, double factor2, double factorCost1, double factorCost2)
+    {
+        this.formula = formula;
+        this.factor1 = factor1;
+        this.factor2 = factor2;
+        this.factorCost1 = factorCost1;
+        this.factorCost2 = factorCost2;
+    }
+
 
     public bool Buy(int coins)
     {
@@ -68,11 +83,13 @@ public class Attribute{
 
     private void LvlUP()
     {
+
         if (!isMax)
         {
+            double pivot1 = value;
+            double pivot2 = value2;
             lvl++;
-            lastValue = value;
-            lastValue2 = value2;
+
 
             switch (formula)
             {
@@ -97,7 +114,8 @@ public class Attribute{
             }
 
             //cost++;
-
+            lastValue = pivot1;
+            lastValue2 = pivot2;
 
             if (lvl >= maxLVL)
             {
