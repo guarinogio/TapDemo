@@ -11,6 +11,9 @@ public class EnemyData : MonoBehaviour {
     public int life;
     public bool isDead;
     public bool isAttack;
+    public bool isStunned;
+    public bool isBleeding;
+
 
     public BattleElement target;
 

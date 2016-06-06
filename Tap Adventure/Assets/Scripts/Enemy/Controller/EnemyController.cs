@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class EnemyController : BattleElement {
 
@@ -20,13 +21,27 @@ public class EnemyController : BattleElement {
     }
 
     // Use this for initialization
-    void Start () {
-	
-	}
+    void Start()
+    {
+
+    }
 
     void FixedUpdate()
     {
-        if (!data.isAttack)
+        lock (syncLock)
+        {
+            if (!data.isDead && QDamage.Count > 0)
+            {
+                data.life -= QDamage.Dequeue();
+                if (data.life <= 0)
+                {
+                    data.isDead = true;
+                    data.life = 0;
+                }
+            }
+        }
+
+        if (!data.isDead && !data.isAttack)
         {
             if (data.target != null)
             {
@@ -38,7 +53,7 @@ public class EnemyController : BattleElement {
 
     public IEnumerator Attack(BattleElement enemy)
     {
-        if (!data.isDead)
+        if (!data.isDead && !data.isStunned)
         {
             while (!enemy.isDead) {
                 enemy.DoDamage((int)data.attack.value);
@@ -53,14 +68,45 @@ public class EnemyController : BattleElement {
         }
     }
 
+    public IEnumerator StunMe(int seconds)
+    {
+        data.isStunned = true;
+        yield return new WaitForSeconds((float)data.speed.value);
+        data.isStunned = false;
+    }
+
+    public IEnumerator BleedingMe(double value, int seconds)
+    {
+        data.isBleeding = true;
+        for (int i = 0; i < 3; i++)
+        {
+            if (data.life > 0)
+            {
+                DoDamage((int)value);
+                yield return new WaitForSeconds((float)seconds);
+            }
+            else
+            {
+                break;
+            }
+        }
+        data.isBleeding = false;
+    }
+
     public override void DoDamage(int damage)
     {
-        base.DoDamage(damage);
-        data.life -= damage;
-        if(data.life <= 0)
-        {
-            data.isDead = true;
-            data.life = 0;
-        } 
+            base.DoDamage(damage);
+    }
+
+    public override void Stun(int seconds)
+    {
+        base.Stun(seconds);
+        StartCoroutine(StunMe(seconds));
+    }
+
+    public override void Bleeding(double value, int seconds)
+    {
+        base.Bleeding(value, seconds);
+        StartCoroutine(BleedingMe(value,seconds));
     }
 }

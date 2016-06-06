@@ -7,7 +7,7 @@
     POWER,
     WILL,
     STUN,
-    POISON,
+    BLEEDING,
     POTENCY,
     GOLD
 }
