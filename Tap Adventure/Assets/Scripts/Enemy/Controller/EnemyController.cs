@@ -71,7 +71,7 @@ public class EnemyController : BattleElement {
     public IEnumerator StunMe(int seconds)
     {
         data.isStunned = true;
-        yield return new WaitForSeconds((float)data.speed.value);
+        yield return new WaitForSeconds((float)seconds);
         data.isStunned = false;
     }
 

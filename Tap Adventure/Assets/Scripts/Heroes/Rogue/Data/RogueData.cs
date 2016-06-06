@@ -18,6 +18,6 @@ public class RogueData : MonoBehaviour {
         stun = new Attribute(ATTRIBUTE_TYPE.STUN, 3);
         speed = new Attribute(ATTRIBUTE_TYPE.SPEED, 1);
         bleeding = new Attribute(ATTRIBUTE_TYPE.BLEEDING, 30);
-        potency = new Attribute(ATTRIBUTE_TYPE.POTENCY, 1.1f);
+        potency = new Attribute(ATTRIBUTE_TYPE.POTENCY, 1);
     }
 }
