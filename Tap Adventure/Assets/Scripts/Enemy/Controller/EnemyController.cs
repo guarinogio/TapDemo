@@ -28,11 +28,11 @@ public class EnemyController : BattleElement {
 
     void FixedUpdate()
     {
-        lock (syncLock)
+        lock (syncLockD)
         {
-            if (!data.isDead && QDamage.Count > 0)
+            if (!data.isDead && qDamage.Count > 0)
             {
-                data.life -= QDamage.Dequeue();
+                data.life -= qDamage.Dequeue();
                 if (data.life <= 0)
                 {
                     data.isDead = true;

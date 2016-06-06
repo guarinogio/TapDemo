@@ -27,7 +27,39 @@ public class WarriorController : BattleElement{
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(!data.isAttack)
+        lock (syncLockD)
+        {
+            if (!data.isDead)
+            {
+                if (qDamage.Count > 0)
+                {
+                    data.life -= qDamage.Dequeue();
+                    if (data.life <= 0)
+                    {
+                        data.isDead = true;
+                        data.life = 0;
+                    }
+                }
+            }
+        }
+
+        lock (syncLockH)
+        {
+            if (!data.isDead)
+            {
+                if (qDamage.Count > 0)
+                {
+                    data.life += qHealth.Dequeue();
+                    if (data.life > data.health.value)
+                    {
+                        data.life += (int)data.health.value;
+                    }
+                }
+            }
+        }
+                
+
+        if (!data.isAttack)
         {
             if (data.target != null)
             {
@@ -67,24 +99,10 @@ public class WarriorController : BattleElement{
     public override void DoDamage(int damage)
     {
         base.DoDamage(damage);
-        data.life -= damage;
-        if (data.life <= 0)
-        {
-            data.isDead = true;
-            data.life = 0;
-        }
     }
 
     public override void Heal(int points)
     {
         base.Heal(points);
-        if (!data.isDead)
-        {
-            data.life += points;
-            if (data.life > data.health.value)
-            {
-                data.life = (int)data.health.value;
-            }
-        }
     }
 }
