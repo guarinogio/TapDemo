@@ -18,10 +18,15 @@ public class WarriorController : BattleElement{
         set { myGameObject = value; }
     }
 
-    // Use this for initialization
+    public override BattleElement target
+    {
+        get { return data.target; }
+        set { data.target = value; }
+    }
+
     void Start()
     {
-
+        data.Init();
     }
 
     // Update is called once per frame

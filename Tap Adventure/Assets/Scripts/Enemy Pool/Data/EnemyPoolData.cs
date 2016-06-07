@@ -35,9 +35,9 @@ public class EnemyPoolData : MonoBehaviour {
         target = enemyPool.Dequeue();
         battleElementTarget = target.GetComponent<BattleInterface>().battleElement;
         target.SetActive(true);
-        target.transform.GetChild(0).gameObject.GetComponent<EnemyData>().target = warrior;
         warriorData.target = battleElementTarget;
         rogueData.target = battleElementTarget;
+        target.GetComponent<BattleInterface>().battleElement.target = warrior;
     }
 	
 	// Update is called once per frame

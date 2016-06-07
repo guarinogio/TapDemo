@@ -18,6 +18,17 @@ public class MageController : BattleElement{
         set { myGameObject = value; }
     }
 
+    public override BattleElement target
+    {
+        get { return data.target; }
+        set { data.target = value; }
+    }
+
+    void Start()
+    {
+        data.Init();
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {

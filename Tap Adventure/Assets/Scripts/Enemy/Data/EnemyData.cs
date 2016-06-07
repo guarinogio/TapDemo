@@ -19,7 +19,7 @@ public class EnemyData : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start()
+    public void Init()
     {
         attack = new Attribute(ATTRIBUTE_TYPE.ATTACK, 10);
         speed = new Attribute(ATTRIBUTE_TYPE.SPEED, 1);

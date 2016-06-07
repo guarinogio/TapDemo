@@ -13,7 +13,7 @@ public class MageData : MonoBehaviour {
     public BattleElement target;
 
     // Use this for initialization
-    void Start () {
+    public void Init () {
         power = new Attribute(ATTRIBUTE_TYPE.POWER,20,50,100,100);
         power.SetFormula(ATTRIBUTE_FORMULA.FUNTION4, 10, 15, 100, 200);
         speed = new Attribute(ATTRIBUTE_TYPE.SPEED, 1);

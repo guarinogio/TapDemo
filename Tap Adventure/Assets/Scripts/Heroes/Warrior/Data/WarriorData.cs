@@ -15,7 +15,7 @@ public class WarriorData : MonoBehaviour {
     public BattleElement target;
 
     // Use this for initialization
-    void Start () {
+    public void Init () {
         attack = new Attribute(ATTRIBUTE_TYPE.ATTACK,20,50,100,100);
         attack.SetFormula(ATTRIBUTE_FORMULA.FUNTION4, 10, 15, 100, 200);
         speed = new Attribute(ATTRIBUTE_TYPE.SPEED, 1);

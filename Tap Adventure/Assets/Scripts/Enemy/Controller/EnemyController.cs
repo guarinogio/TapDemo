@@ -20,10 +20,16 @@ public class EnemyController : BattleElement {
         set {myGameObject = value;}
     }
 
+    public override BattleElement target
+    {
+        get { return data.target; }
+        set { data.target = value; }
+    }
+
     // Use this for initialization
     void Start()
     {
-
+        data.Init();
     }
 
     void FixedUpdate()
@@ -55,8 +61,12 @@ public class EnemyController : BattleElement {
     {
         if (!data.isDead && !data.isStunned)
         {
-            while (!enemy.isDead) {
-                enemy.DoDamage((int)data.attack.value);
+            while (!enemy.isDead)
+            {
+                if (data.target != null)
+                {
+                    enemy.DoDamage((int)data.attack.value);
+                }
                 yield return new WaitForSeconds((float)data.speed.value);
             }
 

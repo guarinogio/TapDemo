@@ -7,10 +7,12 @@ public abstract class BattleElement : MonoBehaviour
 
     public abstract GameObject myGameObject { get; set; }
 
-    public Queue<int> qDamage = new Queue<int>();
-    public Queue<int> qHealth = new Queue<int>();
+    public abstract BattleElement target { get; set; }
 
     public virtual BattleElement battleElement { get { return this; } set { } }
+
+    protected Queue<int> qDamage = new Queue<int>();
+    protected Queue<int> qHealth = new Queue<int>();
 
     protected readonly object syncLockD = new object();
     protected readonly object syncLockH = new object();
@@ -56,5 +58,4 @@ public abstract class BattleElement : MonoBehaviour
             return;
         }
     }
-
 }

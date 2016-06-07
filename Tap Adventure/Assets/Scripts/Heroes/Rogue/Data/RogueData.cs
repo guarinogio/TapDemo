@@ -14,7 +14,7 @@ public class RogueData : MonoBehaviour {
     public BattleElement target;
 
     // Use this for initialization
-    void Start () {
+    public void Init () {
         stun = new Attribute(ATTRIBUTE_TYPE.STUN, 3);
         speed = new Attribute(ATTRIBUTE_TYPE.SPEED, 1);
         bleeding = new Attribute(ATTRIBUTE_TYPE.BLEEDING, 30);

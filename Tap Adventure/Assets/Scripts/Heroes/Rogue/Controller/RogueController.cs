@@ -18,10 +18,16 @@ public class RogueController : BattleElement{
         set { myGameObject = value; }
     }
 
+    public override BattleElement target
+    {
+        get { return data.target; }
+        set { data.target = value; }
+    }
+
     // Use this for initialization
     void Start()
     {
-
+        data.Init();
     }
 
     // Update is called once per frame
