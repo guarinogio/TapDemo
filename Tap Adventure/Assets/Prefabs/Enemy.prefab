@@ -196,6 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11404252}
   view: {fileID: 11463778}
+  pool: {fileID: 0}
 --- !u!114 &11472424
 MonoBehaviour:
   m_ObjectHideFlags: 1

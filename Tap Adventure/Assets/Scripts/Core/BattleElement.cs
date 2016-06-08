@@ -51,11 +51,19 @@ public abstract class BattleElement : MonoBehaviour
         }
     }
 
-    public virtual void Bleeding(double value ,int seconds)
+    public virtual void Bleeding(double value, int seconds)
     {
         if (isDead)
         {
             return;
         }
+    }
+
+    public virtual void Reset()
+    {
+    }
+
+    public virtual void Init()
+    {
     }
 }

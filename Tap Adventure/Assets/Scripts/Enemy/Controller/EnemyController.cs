@@ -26,9 +26,14 @@ public class EnemyController : BattleElement {
         set { data.target = value; }
     }
 
+
+
+
     // Use this for initialization
-    void Start()
+
+    public override void Init()
     {
+        base.Init();
         data.Init();
     }
 
@@ -43,6 +48,7 @@ public class EnemyController : BattleElement {
                 {
                     data.isDead = true;
                     data.life = 0;
+                    kill();
                 }
             }
         }
@@ -55,6 +61,17 @@ public class EnemyController : BattleElement {
                 StartCoroutine(Attack(data.target));
             }
         }
+    }
+
+    private void kill()
+    {
+        data.pool.Next();
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+        data.Reset();
     }
 
     public IEnumerator Attack(BattleElement enemy)

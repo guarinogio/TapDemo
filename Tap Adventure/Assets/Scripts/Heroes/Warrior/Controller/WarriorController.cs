@@ -93,6 +93,7 @@ public class WarriorController : BattleElement{
                 yield return new WaitForSeconds((int)data.speed.value);
             }
 
+            data.isAttack = false;
             yield return null;
         }
         else
