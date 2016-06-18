@@ -7,6 +7,11 @@ public class EnemyPoolData : MonoBehaviour
     public int level;
     public int MaxLevel;
 
+    [HideInInspector]
+    public int round;
+    [HideInInspector]
+    public bool roundKey;
+
     public WarriorData warriorData;
     public RogueData rogueData;
 
@@ -39,6 +44,8 @@ public class EnemyPoolData : MonoBehaviour
     // Use this for initialization
     public void Init()
     {
+        round = 1;
+        roundKey = false;
         enemyPool = new Queue<GameObject>();
         garbageQueue = new Queue<GameObject>();
         enemyList = new List<List<GameObject>>();

@@ -31,8 +31,31 @@ public class EnemyPoolController : MonoBehaviour {
             enemy = Instantiate(item);
             data.enemyPool.Enqueue(enemy);
         }
-
+        validateButtons();
         SetEnemy();
+        view.SetRound(data.round, data.enemyPool.Count);
+    }
+
+    public void validateButtons()
+    {
+        if (data.level <= 1)
+        {
+            view.backButton.SetActive(false);
+        }
+        else
+        {
+            view.backButton.SetActive(true);
+        }
+
+
+        if (data.level >= data.MaxLevel)
+        {
+            view.nextButton.SetActive(false);
+        }
+        else
+        {
+            view.nextButton.SetActive(true);
+        }
     }
 
     public void Next()
@@ -40,12 +63,67 @@ public class EnemyPoolController : MonoBehaviour {
         data.target.SetActive(false);
         data.enemyPool.Enqueue(data.target);
         SetEnemy();
+        if (data.level == data.MaxLevel)
+        {
+            if (!data.roundKey)
+            {
+                if (data.round <= data.enemyPool.Count)
+                {
+                    data.round++;
+                }
+            }
+        }
+        validateRound();
         Debug.Log("new enemy");
     }
 
+    private void validateRound()
+    {
+        if (data.level == data.MaxLevel)
+        {
+            view.roundText.SetActive(true);
+            if (data.roundKey)
+            {
+                data.round = 1;
+                data.roundKey = false;
+                view.roundText.SetActive(true);
+                view.SetRound(data.round, data.enemyPool.Count);
+
+            }
+            else
+            {
+                if (data.round <= data.enemyPool.Count)
+                {
+                    view.SetRound(data.round, data.enemyPool.Count);
+                }
+                else
+                {
+                    view.roundText.SetActive(false);
+                    if (!data.roundKey)
+                    {
+                        data.roundKey = true;
+                        data.MaxLevel++;
+                    }
+
+                    validateButtons();
+                }
+            }
+        }
+        else
+        {
+            view.roundText.SetActive(false);
+        }
+
+
+    }
 
     public void SetEnemy()
     {
+        int j = UnityEngine.Random.Range(1,data.enemyPool.Count);
+        for (int i = 0; i < j-1; i++)
+        {
+            data.enemyPool.Enqueue(data.enemyPool.Dequeue());
+        }
         data.target = data.enemyPool.Dequeue();
         data.battleElementTarget = data.target.GetComponent<BattleInterface>().battleElement;
         data.battleElementTarget.Init();
@@ -57,12 +135,16 @@ public class EnemyPoolController : MonoBehaviour {
     }
 
 
+
+
     public void nextLevel()
     {
         if (data.level < data.MaxLevel)
         {
             data.level++;
             view.SetLevel(data.level);
+            validateButtons();
+            validateRound();
         }
 
         if(data.level%10 == 0)
@@ -77,6 +159,8 @@ public class EnemyPoolController : MonoBehaviour {
         {
             data.level--;
             view.SetLevel(data.level);
+            validateButtons();
+            validateRound();
         }
 
         if (data.level % 10 == 0)
@@ -100,9 +184,6 @@ public class EnemyPoolController : MonoBehaviour {
         }
 
         clearEnemyPool();
-//        Debug.Log(enemyList.Count);
-//        Debug.Log(data.enemyPool.Count);
-//       Debug.Log(data.garbageQueue.Count);
         foreach (GameObject item in enemyList)
         {
             enemy = Instantiate(item);
@@ -124,12 +205,6 @@ public class EnemyPoolController : MonoBehaviour {
 
         StartCoroutine(FreeMemo());
     }
-
-    // Update is called once per frame
-    void Update ()
-    {
-
-	}
 
     private IEnumerator FreeMemo()
     {
