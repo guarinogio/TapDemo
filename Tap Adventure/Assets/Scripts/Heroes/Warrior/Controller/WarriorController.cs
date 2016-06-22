@@ -2,10 +2,15 @@
 using System.Collections;
 
 public class WarriorController : BattleElement{
-
+    public GameObject FloatText;
+    public static WarriorController Instance;
     public WarriorData data;
     public WarriorView view;
 
+    void Awake()
+    {
+        Instance = this;
+    }
     public override bool isDead
     {
         get { return data.isDead; }
@@ -38,7 +43,11 @@ public class WarriorController : BattleElement{
             {
                 if (qDamage.Count > 0)
                 {
-                    data.life -= qDamage.Dequeue();
+                    int d = qDamage.Dequeue();
+                    data.life -= d;
+                    view.UpdateHPBar((float)data.life / (float)data.health.value);
+                    GameObject go = (GameObject)Instantiate(FloatText, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+                    go.GetComponent<FloatingTextController>().InitText(Color.red, d.ToString(), FloatingTextController.FloatTextType.ForceRight);
                     if (data.life <= 0)
                     {
                         data.isDead = true;
@@ -52,12 +61,16 @@ public class WarriorController : BattleElement{
         {
             if (!data.isDead)
             {
-                if (qDamage.Count > 0)
+                if (qHealth.Count > 0)
                 {
-                    data.life += qHealth.Dequeue();
+                    int d = qHealth.Dequeue();
+                    data.life += d;
+                    view.UpdateHPBar((float)data.life / (float)data.health.value);
+                    GameObject go = (GameObject)Instantiate(FloatText, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+                    go.GetComponent<FloatingTextController>().InitText(Color.green, d.ToString(), FloatingTextController.FloatTextType.Up);
                     if (data.life > data.health.value)
                     {
-                        data.life += (int)data.health.value;
+                        data.life = (int)data.health.value;
                     }
                 }
             }

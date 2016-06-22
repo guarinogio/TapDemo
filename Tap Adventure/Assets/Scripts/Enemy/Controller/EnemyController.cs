@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 public class EnemyController : BattleElement {
-
+    public GameObject FloatText;
     public EnemyData data;
     public EnemyView view;
 
@@ -43,7 +43,11 @@ public class EnemyController : BattleElement {
         {
             if (!data.isDead && qDamage.Count > 0)
             {
-                data.life -= qDamage.Dequeue();
+                int d = qDamage.Dequeue();
+                data.life -= d;
+                EnemyPoolController.Instance.view.UpdateHPBar((float)data.life / (float)data.health.value);
+                GameObject go = (GameObject)Instantiate(FloatText, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+                go.GetComponent<FloatingTextController>().InitText(Color.red, d.ToString(), FloatingTextController.FloatTextType.ForceLeft);
                 if (data.life <= 0)
                 {
                     data.isDead = true;
@@ -65,6 +69,7 @@ public class EnemyController : BattleElement {
 
     private void kill()
     {
+        view.TriggerDead();
         data.pool.Next();
     }
 
@@ -80,6 +85,7 @@ public class EnemyController : BattleElement {
         {
             while (!enemy.isDead)
             {
+                view.TriggerAttack();
                 if (data.target != null)
                 {
                     enemy.DoDamage((int)data.attack.value);
@@ -122,12 +128,14 @@ public class EnemyController : BattleElement {
 
     public override void DoDamage(int damage)
     {
-            base.DoDamage(damage);
+        view.TriggerDamage();
+        base.DoDamage(damage);
     }
 
     public override void Stun(int seconds)
     {
         base.Stun(seconds);
+        view.TriggerStun();
         StartCoroutine(StunMe(seconds));
     }
 

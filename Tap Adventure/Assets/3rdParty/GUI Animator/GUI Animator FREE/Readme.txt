@@ -1,5 +1,5 @@
 ------------------------------------------------------------------
-GUI Animator FREE 0.9.95
+GUI Animator FREE 1.0.1
 ------------------------------------------------------------------
 
 	GUI Animator FREE lets you quickly add tween animations to Unity UI elements.
@@ -12,7 +12,8 @@ GUI Animator FREE 0.9.95
 		• 9 Demo scenes with sample scripts for JavaScript developers.
 		• 2 Basic demo scenes with sample scripts for C# developers.
 		• Animate position, rotation, scale, fade using tweener.
-		• Controls sounds with UI animations.
+		• In, Idle and Out animations.
+		• Able to play sounds along with UI animations.
 		• Ignorable time scale.
 		
 		• Support Unity UI. (http://unity3d.com/learn/tutorials/modules/beginner/ui)
@@ -22,17 +23,35 @@ GUI Animator FREE 0.9.95
 		• Support all build player platforms.
 		
 	Compatible:
-
-		• Unity 4.6.9 or higher.
-		• Unity 5.3.2 or higher.
+	
+		• Unity 4.7.1 or higher.
+		• Unity 5.3.4 or higher.
 
 	Note:
 
 		• GUI Animator FREE shows a text at upper-left corner of screen for a while when Play mode started.
 
+	Product Pages:
+
+		Unity Asset Store:	https://www.assetstore.unity3d.com/en/#!/content/58843
+
+		GE Store:	http://www.ge-team.com/store/en/products/gui-animator-free/
+
 	Full version:
 
-		https://www.assetstore.unity3d.com/en/#!/content/28709
+		Unity Asset Store:	https://www.assetstore.unity3d.com/en/#!/content/28709
+
+		GE Store:	http://www.ge-team.com/store/en/products/gui-animator-for-unity-ui/
+
+	Advance features in full version:
+
+		• Callbacks.
+		• No message in Play mode.
+		• Supports DOTween, HOTween, LeanTween, iTween and able to add your favorite tweeners.
+		• Rotate, Scale and Fade loop in Idle-animations.
+		• Friendly Inspector that categorize animations in to tab.
+		• Better performance.
+
 
 	Please direct any bugs/comments/suggestions to support e-mail (geteamdev@gmail.com).
 		
@@ -46,7 +65,17 @@ GUI Animator FREE 0.9.95
 Release notes
 ------------------------------------------------------------------
 
-	Version 0.9.95 (Initial version)
+	Version 1.0.1 (Release on May 19, 2016)
+	
+		• Fixed, DontDestroyOnLoad is called in edit mode.
+		• Improved performance of Scale Loop and Fade Loop animations.
+		• Unity 5.3.4: Uses "SceneManager.LoadScene" instead of "Application.LoadLevel".
+		• Unity 5.3.4: GETween, GUIAnimatorFREE are built on Unity 5.3.4p2.
+		• Update demo scenes and sample scripts.
+		• Unity 4.7.1 or higher.
+		• Unity 5.3.4 or higher.
+
+	Version 0.9.95 (Initial version, release on May 04, 2016)
 
 		• 9 Demo scenes with sample scripts for C# developers.
 		• 9 Demo scenes with sample scripts for JavaScript developers.

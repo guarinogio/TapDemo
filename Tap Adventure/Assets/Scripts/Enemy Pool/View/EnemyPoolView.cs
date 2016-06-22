@@ -12,6 +12,7 @@ public class EnemyPoolView : MonoBehaviour {
     public GameObject backButton;
     public GameObject nextButton;
     public GameObject roundText;
+    public Image HealthBar;
 
     public void SetLevel(int level)
     {
@@ -30,5 +31,10 @@ public class EnemyPoolView : MonoBehaviour {
             this.round.text = level.ToString() + "/" + (maxLevel+1).ToString();
         }
 
+    }
+    public void UpdateHPBar(float hp)
+    {
+        hp = Mathf.Clamp01(hp);
+        HealthBar.fillAmount = hp;
     }
 }

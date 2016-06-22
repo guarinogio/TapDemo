@@ -19,7 +19,7 @@ public class WarriorData : MonoBehaviour {
         attack = new Attribute(ATTRIBUTE_TYPE.ATTACK,20,50,100,100);
         attack.SetFormula(ATTRIBUTE_FORMULA.FUNTION4, 10, 15, 100, 200);
         speed = new Attribute(ATTRIBUTE_TYPE.SPEED, 1);
-        health = new Attribute(ATTRIBUTE_TYPE.HEALTH, 1000000);
+        health = new Attribute(ATTRIBUTE_TYPE.HEALTH, 500);
         crit = new Attribute(ATTRIBUTE_TYPE.CRIT, 0.3f);
         life = (int)health.value;
     }

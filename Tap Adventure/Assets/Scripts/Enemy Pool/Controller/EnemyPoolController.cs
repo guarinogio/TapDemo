@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using System;
 
 public class EnemyPoolController : MonoBehaviour {
-
+    public static EnemyPoolController Instance;
     public EnemyPoolData data;
     public EnemyPoolController me;
     public EnemyPoolView view;
 
     // Use this for initialization
+    void Awake()
+    {
+        Instance = this;
+    }
     void Start () {
         data.Init();
         Init();
@@ -60,6 +64,10 @@ public class EnemyPoolController : MonoBehaviour {
 
     public void Next()
     {
+        Invoke("NextEnemy", 1f);
+    }
+    void NextEnemy()
+    {
         data.target.SetActive(false);
         data.enemyPool.Enqueue(data.target);
         SetEnemy();
@@ -76,7 +84,6 @@ public class EnemyPoolController : MonoBehaviour {
         validateRound();
         Debug.Log("new enemy");
     }
-
     private void validateRound()
     {
         if (data.level == data.MaxLevel)
@@ -132,10 +139,8 @@ public class EnemyPoolController : MonoBehaviour {
         data.warriorData.target = data.battleElementTarget;
         data.rogueData.target = data.battleElementTarget;
         data.target.GetComponent<BattleInterface>().battleElement.target = data.warrior;
+        view.UpdateHPBar(1f);
     }
-
-
-
 
     public void nextLevel()
     {

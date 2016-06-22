@@ -1,9 +1,9 @@
 ------------------------------------------------------------------
-GUI Animator FREE 0.9.95
+GUI Animator FREE 1.0.1
 ------------------------------------------------------------------
 
 	• Web demo.
-		http://ge-team.com/pages/unity-3d/gui-animator-for-unity-ui/
+		http://www.ge-team.com/store/en/products/gui-animator-free/
 
 	• Please direct any bugs/comments/suggestions to support e-mail (geteamdev@gmail.com).
 
