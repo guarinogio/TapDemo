@@ -83,7 +83,6 @@ public class EnemyPoolController : MonoBehaviour {
             }
         }
         validateRound();
-        Debug.Log("new enemy");
     }
 
     private void validateRound()
@@ -122,7 +121,6 @@ public class EnemyPoolController : MonoBehaviour {
         {
             view.roundText.SetActive(false);
         }
-
 
     }
 
@@ -203,6 +201,8 @@ public class EnemyPoolController : MonoBehaviour {
         data.target.GetComponentInChildren<EnemyData>().isDead = true;
         data.target.SetActive(false);
         SetEnemy();
+
+        view.SetRound(data.round, data.enemyPool.Count);
         view.SetWorld(data.names[data.index]);
     }
 
