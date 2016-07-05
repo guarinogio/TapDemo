@@ -26,7 +26,7 @@ public class EnemyPoolView : MonoBehaviour {
 
     public void SetRound(int level, int maxLevel)
     {
-        if(level <= maxLevel)
+        if((level-1) <= maxLevel)
         {
             this.round.text = level.ToString() + "/" + (maxLevel+1).ToString();
         }

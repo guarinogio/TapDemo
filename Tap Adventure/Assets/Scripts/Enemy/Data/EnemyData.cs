@@ -19,6 +19,7 @@ public class EnemyData : MonoBehaviour {
 
     public EnemyPoolController pool;
 
+    public ENEMY_TYPE type;
 
     // Use this for initialization
     public void Init()

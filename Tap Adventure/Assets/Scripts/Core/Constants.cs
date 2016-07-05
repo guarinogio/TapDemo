@@ -19,3 +19,10 @@ public enum ATTRIBUTE_FORMULA
     FUNTION3,
     FUNTION4,
 }
+
+public enum ENEMY_TYPE
+{
+    BASIC,
+    MINI_BOSS,
+    BOSS
+}

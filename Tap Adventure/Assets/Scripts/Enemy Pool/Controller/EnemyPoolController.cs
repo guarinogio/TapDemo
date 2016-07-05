@@ -27,7 +27,7 @@ public class EnemyPoolController : MonoBehaviour {
 
         GameObject enemy;
 
-        List<GameObject> enemyList = data.enemyList[data.index++];
+        List<GameObject> enemyList = data.enemyList[data.index];
 
         foreach (GameObject item in enemyList)
         {
@@ -66,6 +66,7 @@ public class EnemyPoolController : MonoBehaviour {
     {
         Invoke("NextEnemy", 1f);
     }
+
     void NextEnemy()
     {
         data.target.SetActive(false);
@@ -75,7 +76,7 @@ public class EnemyPoolController : MonoBehaviour {
         {
             if (!data.roundKey)
             {
-                if (data.round <= data.enemyPool.Count)
+                if (data.round <= data.enemyPool.Count+1)
                 {
                     data.round++;
                 }
@@ -84,6 +85,7 @@ public class EnemyPoolController : MonoBehaviour {
         validateRound();
         Debug.Log("new enemy");
     }
+
     private void validateRound()
     {
         if (data.level == data.MaxLevel)
@@ -99,7 +101,7 @@ public class EnemyPoolController : MonoBehaviour {
             }
             else
             {
-                if (data.round <= data.enemyPool.Count)
+                if (data.round <= (data.enemyPool.Count+1))
                 {
                     view.SetRound(data.round, data.enemyPool.Count);
                 }
@@ -144,6 +146,7 @@ public class EnemyPoolController : MonoBehaviour {
 
     public void nextLevel()
     {
+
         if (data.level < data.MaxLevel)
         {
             data.level++;
@@ -152,7 +155,7 @@ public class EnemyPoolController : MonoBehaviour {
             validateRound();
         }
 
-        if(data.level%10 == 0)
+        if (data.level % 10 == 1 || data.level % 10 == 0 || data.level % 10 == 5 || data.level % 10 == 6)
         {
             SetNewWorld(true);
         }
@@ -168,7 +171,7 @@ public class EnemyPoolController : MonoBehaviour {
             validateRound();
         }
 
-        if (data.level % 10 == 0)
+        if (data.level % 10 == 0 || data.level % 10 == 9 || data.level % 10 == 4 || data.level % 10 == 5)
         {
             SetNewWorld(false);
         }
@@ -181,12 +184,14 @@ public class EnemyPoolController : MonoBehaviour {
 
         if (isNext)
         {
-            enemyList = data.enemyList[data.index++];
+            data.index++;
         }
         else
         {
-            enemyList = data.enemyList[data.index--];
+            data.index--;
         }
+
+        enemyList = data.enemyList[data.index];
 
         clearEnemyPool();
         foreach (GameObject item in enemyList)
