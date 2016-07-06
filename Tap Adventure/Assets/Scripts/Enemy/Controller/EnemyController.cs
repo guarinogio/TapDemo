@@ -43,11 +43,20 @@ public class EnemyController : BattleElement {
         {
             if (!data.isDead && qDamage.Count > 0)
             {
-                int d = qDamage.Dequeue();
-                data.life -= d;
+                SkillValue d = qDamage.Dequeue();
+                data.life -= d.Value();
                 EnemyPoolController.Instance.view.UpdateHPBar((float)data.life / (float)data.health.value);
                 GameObject go = (GameObject)Instantiate(FloatText, transform.position + Vector3.up * 0.5f, Quaternion.identity);
-                go.GetComponent<FloatingTextController>().InitText(Color.red, d.ToString(), FloatingTextController.FloatTextType.ForceLeft);
+
+                if (d.IsCritical())
+                {
+                    go.GetComponent<FloatingTextController>().InitText(Color.yellow, d.Value().ToString(), FloatingTextController.FloatTextType.ForceLeft);
+                }
+                else
+                {
+                    go.GetComponent<FloatingTextController>().InitText(Color.red, d.Value().ToString(), FloatingTextController.FloatTextType.ForceLeft);
+                }
+
                 if (data.life <= 0)
                 {
                     data.isDead = true;
@@ -88,7 +97,7 @@ public class EnemyController : BattleElement {
                 view.TriggerAttack();
                 if (data.target != null)
                 {
-                    enemy.DoDamage((int)data.attack.value);
+                    enemy.DoDamage(new SkillValue((int)data.attack.value));
                 }
                 yield return new WaitForSeconds((float)data.speed.value);
             }
@@ -115,7 +124,7 @@ public class EnemyController : BattleElement {
         {
             if (data.life > 0)
             {
-                DoDamage((int)value);
+                DoDamage(new SkillValue((int)value));
                 yield return new WaitForSeconds((float)seconds);
             }
             else
@@ -126,7 +135,7 @@ public class EnemyController : BattleElement {
         data.isBleeding = false;
     }
 
-    public override void DoDamage(int damage)
+    public override void DoDamage(SkillValue damage)
     {
         view.TriggerDamage();
         base.DoDamage(damage);

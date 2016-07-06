@@ -11,13 +11,13 @@ public abstract class BattleElement : MonoBehaviour
 
     public virtual BattleElement battleElement { get { return this; } set { } }
 
-    protected Queue<int> qDamage = new Queue<int>();
-    protected Queue<int> qHealth = new Queue<int>();
+    protected Queue<SkillValue> qDamage = new Queue<SkillValue>();
+    protected Queue<SkillValue> qHealth = new Queue<SkillValue>();
 
     protected readonly object syncLockD = new object();
     protected readonly object syncLockH = new object();
 
-    public virtual void DoDamage(int damage)
+    public virtual void DoDamage(SkillValue damage)
     {
         lock (syncLockD)
         {
@@ -30,7 +30,7 @@ public abstract class BattleElement : MonoBehaviour
         }
     }
 
-    public virtual void Heal(int points)
+    public virtual void Heal(SkillValue points)
     {
         lock (syncLockH)
         {

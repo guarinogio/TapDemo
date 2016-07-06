@@ -50,12 +50,11 @@ public class MageController : BattleElement{
             {
                 if (Random.Range(0.00f,1.00f) <= data.will.value)
                 {
-                    Debug.Log("critical");
-                    enemy.DoDamage((int)data.power.value2 * 2);
+                    enemy.Heal(new SkillValue((int)data.power.value2 * 2,true));
                 }
                 else
                 {
-                    enemy.Heal(Random.Range((int)data.power.value, (int)data.power.value2));
+                    enemy.Heal(new SkillValue(Random.Range((int)data.power.value, (int)data.power.value2)));
                 }
 
                 yield return new WaitForSeconds((int)data.speed.value);

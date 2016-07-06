@@ -10,10 +10,10 @@ public class ClickerSystemController : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void ClickHeal () {
-        WarriorController.Instance.Heal(10);
+        WarriorController.Instance.Heal(new SkillValue(10));
 	}
     public void ClickAttack()
     {
-        EnemyPoolController.Instance.data.battleElementTarget.DoDamage(10);
+        EnemyPoolController.Instance.data.battleElementTarget.DoDamage(new SkillValue(10));
     }
 }
