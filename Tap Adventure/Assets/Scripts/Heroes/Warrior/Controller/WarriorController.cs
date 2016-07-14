@@ -44,17 +44,17 @@ public class WarriorController : BattleElement{
                 if (qDamage.Count > 0)
                 {
                     SkillValue d = qDamage.Dequeue();
-                    data.life -= d.Value();
+                    data.life -= (int)d.Value();
                     view.UpdateHPBar((float)data.life / (float)data.health.value);
                     GameObject go = (GameObject)Instantiate(FloatText, transform.position + Vector3.up * 0.5f, Quaternion.identity);
 
-                    if (d.IsCritical())
+                    if (d.GetAttType() == ATTACK_TYPE.CRITICAL)
                     {
-                        go.GetComponent<FloatingTextController>().InitText(Color.yellow, d.Value().ToString(), FloatingTextController.FloatTextType.ForceRight);
+                        go.GetComponent<FloatingTextController>().InitText(Color.yellow, Global.Instance.DoubletoString(d.Value()), FloatingTextController.FloatTextType.ForceRight);
                     }
                     else
                     {
-                        go.GetComponent<FloatingTextController>().InitText(Color.red, d.Value().ToString(), FloatingTextController.FloatTextType.ForceRight);
+                        go.GetComponent<FloatingTextController>().InitText(Color.red, Global.Instance.DoubletoString(d.Value()), FloatingTextController.FloatTextType.ForceRight);
                     }
 
                     if (data.life <= 0)
@@ -73,17 +73,17 @@ public class WarriorController : BattleElement{
                 if (qHealth.Count > 0)
                 {
                     SkillValue d = qHealth.Dequeue();
-                    data.life += d.Value();
+                    data.life += (int)d.Value();
                     view.UpdateHPBar((float)data.life / (float)data.health.value);
                     GameObject go = (GameObject)Instantiate(FloatText, transform.position + Vector3.up * 0.5f, Quaternion.identity);
 
-                    if (d.IsCritical())
+                    if (d.GetAttType() == ATTACK_TYPE.HEAL_CRITICAL)
                     {
-                        go.GetComponent<FloatingTextController>().InitText(Color.cyan, d.Value().ToString(), FloatingTextController.FloatTextType.Up);
+                        go.GetComponent<FloatingTextController>().InitText(Color.cyan, Global.Instance.DoubletoString(d.Value()), FloatingTextController.FloatTextType.Up);
                     }
                     else
                     {
-                        go.GetComponent<FloatingTextController>().InitText(Color.green, d.Value().ToString(), FloatingTextController.FloatTextType.Up);
+                        go.GetComponent<FloatingTextController>().InitText(Color.green, Global.Instance.DoubletoString(d.Value()), FloatingTextController.FloatTextType.Up);
                     }
 
 
@@ -114,11 +114,11 @@ public class WarriorController : BattleElement{
             {
                 if (Random.Range(0.00f,1.00f) <= data.crit.value)
                 {
-                    enemy.DoDamage(new SkillValue((int)data.attack.value2 * 2,true));
+                    enemy.DoDamage(new SkillValue((int)data.attack.value2 * 2, ATTACK_ELEMENT.WARRIOR, ATTACK_TYPE.CRITICAL));
                 }
                 else
                 {
-                    enemy.DoDamage(new SkillValue( Random.Range((int)data.attack.value, (int)data.attack.value2),false )  );
+                    enemy.DoDamage(new SkillValue( Random.Range((int)data.attack.value, (int)data.attack.value2), ATTACK_ELEMENT.WARRIOR, ATTACK_TYPE.BASIC)  );
                 }
 
                 yield return new WaitForSeconds((int)data.speed.value);

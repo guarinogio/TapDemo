@@ -44,17 +44,17 @@ public class EnemyController : BattleElement {
             if (!data.isDead && qDamage.Count > 0)
             {
                 SkillValue d = qDamage.Dequeue();
-                data.life -= d.Value();
+                data.life -= (int)d.Value();
                 EnemyPoolController.Instance.view.UpdateHPBar((float)data.life / (float)data.health.value);
                 GameObject go = (GameObject)Instantiate(FloatText, transform.position + Vector3.up * 0.5f, Quaternion.identity);
 
-                if (d.IsCritical())
+                if (d.GetAttType() == ATTACK_TYPE.CRITICAL)
                 {
-                    go.GetComponent<FloatingTextController>().InitText(Color.yellow, d.Value().ToString(), FloatingTextController.FloatTextType.ForceLeft);
+                    go.GetComponent<FloatingTextController>().InitText(Color.yellow, Global.Instance.DoubletoString(d.Value()), FloatingTextController.FloatTextType.ForceLeft);
                 }
                 else
                 {
-                    go.GetComponent<FloatingTextController>().InitText(Color.red, d.Value().ToString(), FloatingTextController.FloatTextType.ForceLeft);
+                    go.GetComponent<FloatingTextController>().InitText(Color.red, Global.Instance.DoubletoString(d.Value()), FloatingTextController.FloatTextType.ForceLeft);
                 }
 
                 if (data.life <= 0)
@@ -97,7 +97,7 @@ public class EnemyController : BattleElement {
                 view.TriggerAttack();
                 if (data.target != null)
                 {
-                    enemy.DoDamage(new SkillValue((int)data.attack.value));
+                    enemy.DoDamage(new SkillValue((int)data.attack.value , ATTACK_ELEMENT.ENEMY , ATTACK_TYPE.BASIC));
                 }
                 yield return new WaitForSeconds((float)data.speed.value);
             }
@@ -124,7 +124,7 @@ public class EnemyController : BattleElement {
         {
             if (data.life > 0)
             {
-                DoDamage(new SkillValue((int)value));
+                DoDamage(new SkillValue((int)value , ATTACK_ELEMENT.ROGUE, ATTACK_TYPE.BLEEDING));
                 yield return new WaitForSeconds((float)seconds);
             }
             else

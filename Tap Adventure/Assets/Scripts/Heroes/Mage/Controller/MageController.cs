@@ -50,11 +50,11 @@ public class MageController : BattleElement{
             {
                 if (Random.Range(0.00f,1.00f) <= data.will.value)
                 {
-                    enemy.Heal(new SkillValue((int)data.power.value2 * 2,true));
+                    enemy.Heal(new SkillValue((int)data.power.value2 * 2, ATTACK_ELEMENT.MAGE, ATTACK_TYPE.HEAL_CRITICAL));
                 }
                 else
                 {
-                    enemy.Heal(new SkillValue(Random.Range((int)data.power.value, (int)data.power.value2)));
+                    enemy.Heal(new SkillValue(Random.Range((int)data.power.value, (int)data.power.value2) , ATTACK_ELEMENT.MAGE, ATTACK_TYPE.HEAL));
                 }
 
                 yield return new WaitForSeconds((int)data.speed.value);
