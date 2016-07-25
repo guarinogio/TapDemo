@@ -144,9 +144,9 @@ public class Attribute{
         return factor * lastValue;
     }
 
-    public double Funtion3(double factor, double initValue)
+    public double Funtion3(double m, double c)
     {
-        return factor * (System.Math.Pow(initValue, lvl-1));
+        return m * lvl + c;
     }
 
     public double Funtion4(double factor, double initValue)
