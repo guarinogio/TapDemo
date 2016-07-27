@@ -6,8 +6,10 @@ public class Attribute{
 
     private ATTRIBUTE_TYPE type;
     private ATTRIBUTE_FORMULA formula;
+
     private double factor1;
     private double factor2;
+
     private double factorCost1;
     private double factorCost2;
 
@@ -42,12 +44,12 @@ public class Attribute{
         isMax = false;
     }
 
-    public Attribute(ATTRIBUTE_TYPE type, double value, double value2, double cost, int maxLVL)
+    public Attribute(ATTRIBUTE_TYPE type, double initValue, double initValue2, double cost, int maxLVL)
     {
         this.type = type;
         lvl = 1;
-        this.value = value;
-        this.value2 = value2;
+        this.value = initValue;
+        this.value2 = initValue2;
         this.initValue = value;
         this.initValue2 = value2;
         this.cost = cost;
@@ -67,6 +69,14 @@ public class Attribute{
         this.factorCost2 = factorCost2;
     }
 
+    public void SetFormula(ATTRIBUTE_FORMULA formula, double factor1, double factorCost1)
+    {
+        this.formula = formula;
+        this.factor1 = factor1;
+        this.factor2 = factor1;
+        this.factorCost1 = factorCost1;
+        this.factorCost2 = factorCost1;
+    }
 
     public bool Buy(int coins)
     {
@@ -81,6 +91,8 @@ public class Attribute{
         }
     }
 
+
+    // Falta actualizar otras variables
     private void LvlUP()
     {
 
@@ -88,6 +100,7 @@ public class Attribute{
         {
             double pivot1 = value;
             double pivot2 = value2;
+            double costPivot = cost;
             lvl++;
 
 
@@ -102,8 +115,11 @@ public class Attribute{
                     value2 = Funtion2(factor1, lastValue2);
                     break;
                 case ATTRIBUTE_FORMULA.FUNTION3:
+
                     value = Funtion3(factor1, initValue);
                     value2 = Funtion3(factor1, initValue2);
+                    cost = Funtion3(factorCost1, initCost);
+
                     break;
                 case ATTRIBUTE_FORMULA.FUNTION4:
                     value = Funtion4(factor1, initValue);
@@ -116,12 +132,18 @@ public class Attribute{
             //cost++;
             lastValue = pivot1;
             lastValue2 = pivot2;
+            lastCost = costPivot;
 
             if (lvl >= maxLVL)
             {
                 isMax = true;
             }
         }
+    }
+
+    public double Funtion3(double m, double c)
+    {
+        return m * lvl + c;
     }
 
     public double Funtion1(double factor1, double factor2)
@@ -142,11 +164,6 @@ public class Attribute{
     public double Funtion2(double factor, double lastValue)
     {
         return factor * lastValue;
-    }
-
-    public double Funtion3(double m, double c)
-    {
-        return m * lvl + c;
     }
 
     public double Funtion4(double factor, double initValue)
